@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge,IE=9,chrome=1"><meta name="generator" content="MATLAB R2019b"><title>Untitled</title><style type="text/css">.rtcContent { padding: 30px; } .CodeBlock { background-color: #F7F7F7; margin: 10px 0 10px 0;}
+.S0 { border-left: 1px solid rgb(233, 233, 233); border-right: 1px solid rgb(233, 233, 233); border-top: 1px solid rgb(233, 233, 233); border-bottom: 0px none rgb(0, 0, 0); border-radius: 4px 4px 0px 0px; padding: 6px 45px 0px 13px; line-height: 16.996px; min-height: 18px; white-space: nowrap; color: rgb(0, 0, 0); font-family: Menlo, Monaco, Consolas, "Courier New", monospace; font-size: 14px;  }
+.S1 { border-left: 1px solid rgb(233, 233, 233); border-right: 1px solid rgb(233, 233, 233); border-top: 0px none rgb(0, 0, 0); border-bottom: 0px none rgb(0, 0, 0); border-radius: 0px; padding: 0px 45px 0px 13px; line-height: 16.996px; min-height: 18px; white-space: nowrap; color: rgb(0, 0, 0); font-family: Menlo, Monaco, Consolas, "Courier New", monospace; font-size: 14px;  }
+.S2 { border-left: 1px solid rgb(233, 233, 233); border-right: 1px solid rgb(233, 233, 233); border-top: 0px none rgb(0, 0, 0); border-bottom: 1px solid rgb(233, 233, 233); border-radius: 0px 0px 4px 4px; padding: 0px 45px 4px 13px; line-height: 16.996px; min-height: 18px; white-space: nowrap; color: rgb(0, 0, 0); font-family: Menlo, Monaco, Consolas, "Courier New", monospace; font-size: 14px;  }</style></head><body><div class = rtcContent><div class="CodeBlock"><div class="inlineWrapper"><div  class = 'S0'><span style="white-space: pre;"><span style="color: rgb(0, 0, 255);">function </span><span>imcenter=find_bestcenter(random_image, P_area,Zmax)</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span style="color: rgb(60, 118, 61);">%% find_bestcenter.m</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span style="color: rgb(60, 118, 61);">% la funciòn analiza los datos del arreglo random image y encuentra las</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span style="color: rgb(60, 118, 61);">% coordenadas del mayor valor.</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span style="color: rgb(60, 118, 61);">% Despues de encontrar el mayor valor, se retorna las coordenadas del mayor</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span style="color: rgb(60, 118, 61);">% valor desplazadas un valor aleatorio no mayor a 25.</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span>imcenter=zeros(1,2);</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span>Parea=P_area/2;</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span>Zmin=Zmax*(1-100/Parea);               </span><span style="color: rgb(60, 118, 61);">% Los datos se escalizarán entre un Z=0 a Z= Zmax, si se</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span style="color: rgb(60, 118, 61);">%% Escaizacipon de la imagen</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span> maxGS=max(max(random_image));</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span> minGS=min(min(random_image));</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span> mZ=(Zmax-Zmin)/(maxGS-minGS);</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span> </span><span class="warning_squiggle_rte">MaxGSmatrix</span><span>=maxGS*ones(size(random_image));</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span> MinGSMatrix=minGS*ones(size(random_image));</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span> </span><span class="warning_squiggle_rte">Zmaxmatrix</span><span>=Zmax*ones(size(random_image));</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span> Zminmatrix=Zmin*ones(size(random_image));</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span> Zmatrix=Zminmatrix+mZ*(random_image-MinGSMatrix);</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span> </span><span class="warning_squiggle_rte">maxz</span><span>=max(max(Zmatrix));</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span> </span><span class="warning_squiggle_rte">minz</span><span>=min(min(Zmatrix));</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span> </span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span> im_tam=size(Zmatrix);          </span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span> maxzloc=find(Zmatrix&gt;(Zmax-1));        </span><span style="color: rgb(60, 118, 61);">% se encuentran las coordenadas del mayor valor </span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span> mazlocresiduos=mod(maxzloc,im_tam(1)); </span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span>maxzloccol=round(max(maxzloc)/(im_tam(1)));</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span>maxzlocrow=max(mazlocresiduos);</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span>im_centery=maxzlocrow;</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span>im_centerx=maxzloccol;</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span style="color: rgb(60, 118, 61);">% se fijan o modifican de manera aleatoria las coordenadas del mayor valor</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span style="color: rgb(0, 0, 255);">if</span><span>(im_centery&lt;500)</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span>    im_centery=525;</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span style="color: rgb(0, 0, 255);">elseif</span><span>(im_centery&gt;2000-500)</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span>    im_centery</span><span class="warning_squiggle_rte warningHighlight">=</span><span>1475</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span style="color: rgb(0, 0, 255);">end</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span>im_centery=round(im_centery-25+50.*rand(1,1)); </span><span style="color: rgb(60, 118, 61);">% la modificación será a lo sumo de +25 o -25</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'></div></div><div class="inlineWrapper"><div  class = 'S1'></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span style="color: rgb(0, 0, 255);">if</span><span>(im_centerx&lt;500)</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span>    im_centerx</span><span class="warning_squiggle_rte warningHighlight">=</span><span>525</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span style="color: rgb(0, 0, 255);">elseif</span><span>(im_centerx&gt;2000-500)</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span>    im_centerx=1475;</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span style="color: rgb(0, 0, 255);">end</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span>    im_centerx=round(im_centerx-25+50.*rand(1,1));</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span>imcenter(1,1)=im_centerx;</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span>imcenter(1,2)=im_centery;</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'></div></div><div class="inlineWrapper"><div  class = 'S2'></div></div></div></div>
+<br>
+<!-- 
+##### SOURCE BEGIN #####
+function imcenter=find_bestcenter(random_image, P_area,Zmax)
+%% find_bestcenter.m
+% la funciòn analiza los datos del arreglo random image y encuentra las
+% coordenadas del mayor valor.
+% Despues de encontrar el mayor valor, se retorna las coordenadas del mayor
+% valor desplazadas un valor aleatorio no mayor a 25.
+
+imcenter=zeros(1,2);
+Parea=P_area/2;
+Zmin=Zmax*(1-100/Parea);               % Los datos se escalizarán entre un Z=0 a Z= Zmax, si se
+
+%% Escaizacipon de la imagen
+ maxGS=max(max(random_image));
+ minGS=min(min(random_image));
+ mZ=(Zmax-Zmin)/(maxGS-minGS);
+ MaxGSmatrix=maxGS*ones(size(random_image));
+ MinGSMatrix=minGS*ones(size(random_image));
+ Zmaxmatrix=Zmax*ones(size(random_image));
+ Zminmatrix=Zmin*ones(size(random_image));
+ Zmatrix=Zminmatrix+mZ*(random_image-MinGSMatrix);
+ maxz=max(max(Zmatrix));
+ minz=min(min(Zmatrix));
+ 
+ im_tam=size(Zmatrix);          
+ maxzloc=find(Zmatrix>(Zmax-1));        % se encuentran las coordenadas del mayor valor 
+ mazlocresiduos=mod(maxzloc,im_tam(1)); 
+maxzloccol=round(max(maxzloc)/(im_tam(1)));
+maxzlocrow=max(mazlocresiduos);
+
+im_centery=maxzlocrow;
+im_centerx=maxzloccol;
+
+% se fijan o modifican de manera aleatoria las coordenadas del mayor valor
+
+if(im_centery<500)
+    im_centery=525;
+elseif(im_centery>2000-500)
+    im_centery=1475
+end
+
+im_centery=round(im_centery-25+50.*rand(1,1)); % la modificación será a lo sumo de +25 o -25
+
+
+if(im_centerx<500)
+    im_centerx=525
+elseif(im_centerx>2000-500)
+    im_centerx=1475;
+end
+    im_centerx=round(im_centerx-25+50.*rand(1,1));
+
+imcenter(1,1)=im_centerx;
+imcenter(1,2)=im_centery;
+##### SOURCE END #####
+--></body></html>
